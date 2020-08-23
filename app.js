@@ -1,6 +1,6 @@
-const Manager = require("./Develop/lib/Manager");
-const Engineer = require("./Develop/lib/Engineer");
-const Intern = require("./Develop/lib/Intern");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -8,11 +8,12 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./Develop/lib/htmlRenderer");
+const render = require("./lib/htmlRenderer");
 const { ifError } = require("assert");
 
 var questions = []
 
+var employeeArray = []
 
 inquirer.prompt([
     {
@@ -20,7 +21,7 @@ inquirer.prompt([
         message: "What is the employee's role?",
         name: "role",
         choices: ["Engineer", "Manager", "Intern"]
-    }]
+    }])
     .then((data) => {
         if (data.role === "Engineer") {
             inquirer.prompt([{
@@ -41,8 +42,14 @@ inquirer.prompt([
             {
                 type: "input",
                 message: "What is your GitHub address?",
-                name: "engineerGithub"
-            }])
+                name: "github"
+            }]).then(response => {
+                response.name = name,
+                response.id = id,
+                response.email = email,
+                response.github = github
+            })
+
         };
         if (data.role === "Manager") {
             inquirer.prompt([{
@@ -63,8 +70,13 @@ inquirer.prompt([
             {
                 type: "input",
                 message: "What is your office number?",
-                name: "managerOfficeNumber"
-            }])
+                name: "officeNumber"
+            }]).then(response => {
+                response.name = name,
+                response.id = id,
+                response.email = email,
+                response.officeNumber = officeNumber
+            })
         };
         if (data.role === "Intern") {
             inquirer.prompt([{
@@ -85,15 +97,20 @@ inquirer.prompt([
             {
                 type: "input",
                 message: "What is your school?",
-                name: "internSchool"
-            }])
+                name: "school"
+            }]).then(response => {
+                response.name = name,
+                response.id = id,
+                response.email = email,
+                response.school = school
+            })
         }
-    }));        
+    });        
 
-fs.writeFile("team.html", JSON.stringify(data), function (error) {
-        console.log(data)
-        if (error) throw error
-    })
+// fs.writeFile("team.html", JSON.stringify(data), function (error) {
+//         console.log(data)
+//         if (error) throw error
+//     })
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
