@@ -11,7 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const { ifError } = require("assert");
 
-var questions = []
+// var questions = []
 
 var employeeArray = []
 
@@ -44,10 +44,8 @@ inquirer.prompt([
                 message: "What is your GitHub address?",
                 name: "github"
             }]).then(response => {
-                response.name = name,
-                response.id = id,
-                response.email = email,
-                response.github = github
+                employeeArray.push(new Engineer(response.name, response.id, response.email, response.github))
+                console.log(employeeArray)
             })
 
         };
@@ -72,10 +70,7 @@ inquirer.prompt([
                 message: "What is your office number?",
                 name: "officeNumber"
             }]).then(response => {
-                response.name = name,
-                response.id = id,
-                response.email = email,
-                response.officeNumber = officeNumber
+                employeeArray.push(new Manager(response.name, response.id, response.email, response.officeNumber))
             })
         };
         if (data.role === "Intern") {
@@ -99,19 +94,20 @@ inquirer.prompt([
                 message: "What is your school?",
                 name: "school"
             }]).then(response => {
-                response.name = name,
-                response.id = id,
-                response.email = email,
-                response.school = school
+                employeeArray.push(new Intern(response.name, response.id, response.email, response.school))
+                addEmployees()
             })
         }
-    });        
+    });
 
-// fs.writeFile("team.html", JSON.stringify(data), function (error) {
-//         console.log(data)
-//         if (error) throw error
-//     })
-
+    function addEmployees(){ 
+        fs.writeFile("team.html", JSON.stringify(employeeArray), function (error) {
+        console.log(employeeArray);
+        if (error) throw error
+    })}
+    
+    
+    // addEmployees()
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
@@ -135,3 +131,15 @@ inquirer.prompt([
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work 
 // 
+
+
+// function addEmployees() {
+//     if (i < 3){
+//         console.log(array1[i])
+//         i++
+//         addEmployees()
+//     }
+// }
+
+// 
+// addEmployees()
