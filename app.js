@@ -15,12 +15,18 @@ const { ifError } = require("assert");
 
 var employeeArray = []
 
+var continuePrompt = true
+
+promptUser()
+function promptUser(){
+
+
 inquirer.prompt([
     {
         type: "list",
         message: "What is the employee's role?",
         name: "role",
-        choices: ["Engineer", "Manager", "Intern"]
+        choices: ["Engineer", "Manager", "Intern", "Stop Adding Employee Roles"]
     }])
     .then((data) => {
         if (data.role === "Engineer") {
@@ -45,7 +51,7 @@ inquirer.prompt([
                 name: "github"
             }]).then(response => {
                 employeeArray.push(new Engineer(response.name, response.id, response.email, response.github))
-                console.log(employeeArray)
+                promptUser();
             })
 
         };
@@ -71,6 +77,7 @@ inquirer.prompt([
                 name: "officeNumber"
             }]).then(response => {
                 employeeArray.push(new Manager(response.name, response.id, response.email, response.officeNumber))
+                promptUser()
             })
         };
         if (data.role === "Intern") {
@@ -95,14 +102,19 @@ inquirer.prompt([
                 name: "school"
             }]).then(response => {
                 employeeArray.push(new Intern(response.name, response.id, response.email, response.school))
-                addEmployees()
+                promptUser()
             })
+        }
+        if (data.role === "Stop Adding Employee Roles"){
+            addEmployees()
+            return
         }
     });
 
+}
     function addEmployees(){ 
-        fs.writeFile("team.html", JSON.stringify(employeeArray), function (error) {
-        console.log(employeeArray);
+        var renderedData = render(employeeArray)
+        fs.writeFile(outputPath, renderedData, function (error) {
         if (error) throw error
     })}
     
