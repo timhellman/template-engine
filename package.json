@@ -1,23 +1,31 @@
 {
-  "name": "template-engine",
+  "name": "unit10hw",
   "version": "1.0.0",
-  "description": "template engine/homework for unit 10",
+  "description": "OOP and testing for week 10 homework",
   "main": "app.js",
   "directories": {
     "lib": "lib",
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose test/*",
+    "start": "node app.js",
+    "sayhi": "echo Hi Tim!"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timhellman/template-engine.git"
+    "url": "git+https://github.com/stevetrilogy/unit10hw.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/timhellman/template-engine/issues"
+    "url": "https://github.com/stevetrilogy/unit10hw/issues"
   },
-  "homepage": "https://github.com/timhellman/template-engine#readme"
+  "homepage": "https://github.com/stevetrilogy/unit10hw#readme",
+  "dependencies": {
+    "inquirer": "^6.3.1"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
 }

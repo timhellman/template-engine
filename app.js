@@ -11,15 +11,10 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const { ifError } = require("assert");
 
-// var questions = []
-
 var employeeArray = []
-
-var continuePrompt = true
 
 promptUser()
 function promptUser(){
-
 
 inquirer.prompt([
     {
@@ -119,7 +114,7 @@ inquirer.prompt([
     })}
     
     
-    // addEmployees()
+   
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
@@ -145,13 +140,3 @@ inquirer.prompt([
 // 
 
 
-// function addEmployees() {
-//     if (i < 3){
-//         console.log(array1[i])
-//         i++
-//         addEmployees()
-//     }
-// }
-
-// 
-// addEmployees()
